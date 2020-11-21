@@ -62,4 +62,21 @@ class DTDenominacion extends Conexion
             die($e->getMessage());
         }
     }
+
+    public function eliminarDenominacion($id_Denominacion)
+    {
+        try
+        {
+            $this->myCon = parent::Conectar();
+            $sql = "DELETE FROM tbl_Denominacion WHERE id_Denominacion = $id_Denominacion";
+            
+            $this->myCon->prepare($sql)->execute();
+
+            $this->myCon = parent::desconectar();
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
+    }
 }
