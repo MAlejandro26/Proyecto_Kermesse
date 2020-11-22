@@ -236,9 +236,7 @@ $dtMon = new DTMoneda();
                         <fieldset>
                             <legend>Registro de nuevo Empleado</legend>
                             <input type="hidden" name="txtAccion" value="1" />
-
                             
-
                             <div class="form-group">
                                 <label>Id Moneda</label>
                                 <input type='number_format' name="txtMoneda" id="txtMoneda" class="form-control">
