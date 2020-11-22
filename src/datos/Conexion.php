@@ -13,9 +13,9 @@ class Conexion
     public function Conectar()
     {
         $serverName = 'localhost';
-        $dbName = 'dbkermesse_grupo4';
+        $dbName = 'dbkermesse';
         $userName = 'root';
-        $pwd = '';
+        $pwd = '1234';
 
         try 
         {
