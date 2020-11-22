@@ -64,4 +64,21 @@ class DTArqueoCaja_det extends Conexion
             die($e->getMessage());
         }
     }
+
+    public function eliminarArqueoCaja_det($idArqueoCaja_Det)
+    {
+        try
+        {
+            $this->myCon = parent::Conectar();
+            $sql = "DELETE FROM tbl_ArqueoCaja_Det WHERE idArqueoCaja_det = $idArqueoCaja_Det";
+            
+            $this->myCon->prepare($sql)->execute();
+
+            $this->myCon = parent::desconectar();
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
+    }
 }
