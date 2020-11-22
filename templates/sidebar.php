@@ -104,6 +104,12 @@
     <span>Detalle Arqueo de Caja</span></a>
 </li>
 
+<li class="nav-item">
+  <a class="nav-link" href="tasaCambio_det.php">
+    <i class="fas fa-fw fa-table"></i>
+    <span>Tasa Cambio Det</span></a>
+</li>
+
 
 
 <!-- Divider -->
