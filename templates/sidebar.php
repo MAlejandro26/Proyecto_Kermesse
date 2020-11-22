@@ -110,6 +110,12 @@
     <i class="fas fa-fw fa-table"></i>
     <span>Denominacion</span></a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="moneda.php">
+    <i class="fas fa-fw fa-table"></i>
+    <span>Monedas</span></a>
+</li>
+
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
