@@ -1,6 +1,6 @@
 <?php
 
-include_once("ConexionKDB.php");
+include_once("Conexion.php");
 
 class DTMoneda extends Conexion
 {
