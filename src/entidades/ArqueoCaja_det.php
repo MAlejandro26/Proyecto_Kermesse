@@ -2,7 +2,7 @@
 
 class ArqueoCaja_det
 {
-    private $idArqueoCaja_det;
+    private $idArqueoCaja_Det;
     private $idArqueoCaja;
     private $idMoneda;
     private $idDenominacion;

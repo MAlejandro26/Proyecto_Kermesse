@@ -1,12 +1,5 @@
-<?php
-
-include 'src/datos/DTMoneda.php';
-
-$dtMon = new DTMoneda();
-
-?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
 
@@ -32,12 +25,11 @@ $dtMon = new DTMoneda();
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
     <?php
 
-    include "templates/sidebar.php";
+    include "sidebar.php";
+
     ?>
-    <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -230,37 +222,9 @@ $dtMon = new DTMoneda();
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <form role="form" name="newEmpleado" action="src/negocio/NGDenominacion.php" method="post">
-                        <fieldset>
-                            <legend>Registro de nuevo Empleado</legend>
-                            <input type="hidden" name="txtAccion" value="1" />
-                            
-                            <div class="form-group">
-                                <label>Id Moneda</label>
-                                <input type='number_format' name="txtMoneda" id="txtMoneda" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Valor</label>
-                                <input type="number" name="txtValor" id="txtValor" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label>Valor Letras</label>
-                                <input type="text" name="txtValor_letras" id="txtValor_letras" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label>Estado</label>
-                                <input type="number" name="txtEstado" id="txtEstado" class="form-control" />
-                            </div>
 
-                            <button type="submit">Guardar</button>
-                            <button type="reset">Cancelar</button>
-
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
+          <!-- Page Heading -->
+          <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
 
         </div>
         <!-- /.container-fluid -->

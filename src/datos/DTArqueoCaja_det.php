@@ -70,7 +70,7 @@ class DTArqueoCaja_det extends Conexion
         try
         {
             $this->myCon = parent::Conectar();
-            $sql = "DELETE FROM tbl_ArqueoCaja_Det WHERE idArqueoCaja_det = $idArqueoCaja_Det";
+            $sql = "DELETE FROM tbl_ArqueoCaja_Det WHERE idArqueoCaja_Det = $idArqueoCaja_Det";
             
             $this->myCon->prepare($sql)->execute();
 

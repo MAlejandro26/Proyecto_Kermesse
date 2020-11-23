@@ -26,7 +26,7 @@ if($_POST)
             } 
             catch (\Throwable $th) 
             {
-                header("Location: daw/HR/index.php");
+                header("Location: ../../index.php");
                 die($e->getMessage());
             }
             break;

@@ -87,24 +87,7 @@
   </div>
 </li>
 
-<!-- Nav Item - Charts -->
-<li class="nav-item">
-  <a class="nav-link" href="charts.html">
-    <i class="fas fa-fw fa-chart-area"></i>
-    <span>Charts</span></a>
-</li>
-
 <!-- Nav Item - Tables -->
-<li class="nav-item">
-  <a class="nav-link" href="tables.html">
-    <i class="fas fa-fw fa-table"></i>
-    <span>Tables</span></a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="locations.php">
-    <i class="fas fa-fw fa-table"></i>
-    <span>Location</span></a>
-</li>
 <li class="nav-item">
   <a class="nav-link" href="denominacion.php">
     <i class="fas fa-fw fa-table"></i>
@@ -116,10 +99,22 @@
     <span>Monedas</span></a>
 </li>
 <li class="nav-item">
+  <a class="nav-link" href="arqueocajaDet.php">
+    <i class="fas fa-fw fa-table"></i>
+    <span>Detalle Arqueo de Caja</span></a>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link" href="tasaCambio_det.php">
+    <i class="fas fa-fw fa-table"></i>
+    <span>Tasa Cambio Det</span></a>
+</li>
+<li class="nav-item">
   <a class="nav-link" href="tasaCambio.php">
     <i class="fas fa-fw fa-table"></i>
     <span>Tasa Cambio</span></a>
 </li>
+
 
 
 <!-- Divider -->
