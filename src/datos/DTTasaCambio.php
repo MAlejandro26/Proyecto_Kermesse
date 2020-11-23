@@ -64,4 +64,21 @@ class DTTasaCambio extends Conexion
             die($e->getMessage());
         }
     }
+
+    public function eliminarTasaCambio($id_tasaCambio)
+    {
+        try
+        {
+            $this->myCon = parent::Conectar();
+            $sql = "DELETE FROM tbl_tasaCambio WHERE id_tasaCambio = $id_tasaCambio";
+            
+            $this->myCon->prepare($sql)->execute();
+
+            $this->myCon = parent::desconectar();
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
+    }
 }

@@ -12,7 +12,7 @@ class DTDenominacion extends Conexion
         {
             $this->myCon = parent::Conectar();
             $result = array();
-            $sql = 'SELECT * from tbl_Denominacion';
+            $sql = 'SELECT * from tbl_denominacion';
 
             $stm = $this->myCon->prepare($sql);
             $stm->execute();
