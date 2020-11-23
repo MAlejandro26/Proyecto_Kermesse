@@ -256,7 +256,7 @@ $datosACD = new DTArqueoCaja_det();
                                     </thead>
 
                                     <tbody>
-                                        <?php foreach($datosACD->listarArqueoCaja_det as $r): ?>
+                                        <?php foreach($datosACD->listarArqueoCaja_det() as $r): ?>
                                             <tr>
                                                 <td><?php echo $r->__GET('idArqueoCaja_Det'); ?></td>
                                                 <td><?php echo $r->__GET('idArqueoCaja'); ?></td>

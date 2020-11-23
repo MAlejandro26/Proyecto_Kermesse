@@ -99,7 +99,7 @@
     <span>Monedas</span></a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="arqueocaja_det.php">
+  <a class="nav-link" href="arqueocajaDet.php">
     <i class="fas fa-fw fa-table"></i>
     <span>Detalle Arqueo de Caja</span></a>
 </li>
