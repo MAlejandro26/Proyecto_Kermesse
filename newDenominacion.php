@@ -234,7 +234,7 @@ $dtMon = new DTMoneda();
                 <div class="col-lg-12">
                     <form role="form" name="newEmpleado" action="src/negocio/NGDenominacion.php" method="post">
                         <fieldset>
-                            <legend>Registro de nuevo Empleado</legend>
+                            <legend>Registro de nueva Denominacion</legend>
                             <input type="hidden" name="txtAccion" value="1" />
                             
                             <div class="form-group">

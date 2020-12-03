@@ -31,14 +31,43 @@ if($_POST)
             }
             break;
         
+        case '2':
+
+            try 
+            {
+                $denominacion->__SET('id_Denominacion',$_POST['txtIdDenominacion']);
+                $denominacion->__SET('idMoneda',$_POST['txtIdMoneda']);
+                $denominacion->__SET('valor',$_POST['txtValor']);
+                $denominacion->__SET('valor_letras', $_POST['txtValorLetras']);
+                $denominacion->__SET('estado',$_POST['txtState']);
+
+                $dtd->actualizarDenominacion($denominacion);
+                header("Location: ../../denominacion.php");
+            } 
+            catch (\Throwable $th) 
+            {
+                header("Location: ../../index.php");
+                die($e->getMessage());
+            }
+            break;
+
         default:
             
             break;
     }
-}elseif ($_GET['accion']=='e') {
+}
+if($_GET)
+{
+    try 
+    {
+        $denominacion->__SET('id_Denominacion', $_GET['idDenominacion']);
+        $dtd->eliminarDenominacion($denominacion->__GET('id_Denominacion'));
 
-    $dtd->eliminarDenominacion($_GET['id']);
-    header("Location: ../../denominacion.php");
-
-
+        header("Location: ../../denominacion.php?msjDelDen=1");
+    } 
+    catch (Exception $e) 
+    {
+        die($e->getMessage());
+        header("Location: ../../denominacion.php?msjDelDen=2");
+    }
 }

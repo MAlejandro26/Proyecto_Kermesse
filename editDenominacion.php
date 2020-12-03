@@ -1,20 +1,15 @@
 <?php
-error_reporting(0);
 
 include 'src/entidades/denominacion.php';
 include 'src/datos/DTDenominacion.php';
 
 $datosDenominacion = new DTDenominacion();
 
-$msjDelDen = "";
-$varMsjDelDen = 0;
-if(isset($varMsjDelDen))
-{
-    $varMsjDelDen = $_GET['msjDelDen'];
-}
+$denEdit;
+$varDenId = $_GET["denominacion_id"];
+$denEdit = $datosDenominacion->obtenerDenominacion($varDenId);
 
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -26,18 +21,14 @@ if(isset($varMsjDelDen))
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>SB Admin 2 - Blank</title>
 
-    <!-- Custom fonts for this template -->
+    <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
+    <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="plugins/jAlert/dist/jAlert.css">
 
 </head>
 
@@ -46,12 +37,11 @@ if(isset($varMsjDelDen))
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
         <?php
 
-            include "templates/sidebar.php";
+        include "templates/sidebar.php";
+
         ?>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -63,11 +53,9 @@ if(isset($varMsjDelDen))
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <form class="form-inline">
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                    </form>
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
                     <!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -246,58 +234,42 @@ if(isset($varMsjDelDen))
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Denominacion</h1>
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Id Moneda</th>
-                                            <th>Valor</th>
-                                            <th>Valor Letras</th>
-                                            <th>Estado</th>
-                                            <th>Opciones</th>
-                                        </tr>
-                                    </thead>
 
-                                    <tbody>
-                                        <?php foreach($datosDenominacion->listarDenominacion() as $r): ?>
-                                            <tr>
-                                                <td><?php echo $r->__GET('id_Denominacion'); ?></td>
-                                                <td><?php echo $r->__GET('idMoneda'); ?></td>
-                                                <td><?php echo $r->__GET('valor'); ?></td>
-                                                <td><?php echo $r->__GET('valor_letras'); ?></td>
-                                                <td><?php echo $r->__GET('estado'); ?></td>
-                                                <td>
-                                                    <a href="editDenominacion.php?denominacion_id=<?php echo $r->__GET('id_Denominacion'); ?>">
-                                                        <i class="fas fa-edit" title="Modificar"></i>
-                                                    </a>
-                                                    &nbsp;&nbsp;
-                                                    <a href="#" onclick="myDeleteDen()">
-                                                        <i class="fas fa-trash" title="Eliminar"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Editar Location</h1>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form action="src/negocio/NGDenominacion.php" method="POST" name="EditDenominacion" role="form">
+
+                                <input name="txtAccion" type="hidden" value="2" />
+                                <input type="hidden" name="txtIdDenominacion" id="txtIdDenominacion">
+                                <div class="form-group">
+                                    <label>Id Moneda</label>
+                                    <input type="text" name="txtIdMoneda" id="txtIdMoneda" placeholder="Id de la Moneda" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Valor</label>
+                                    <input type="text" name="txtValor" id="txtValor" placeholder="Valor" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Valor Letras</label>
+                                    <input type="text" name="txtValorLetras" id="txtValorLetras" placeholder="Valor Letras" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Estado</label>
+                                    <input type="text" name="txtState" id="txtState" placeholder="Estado" required>
+                                </div>
+                                <button type="submit">Guardar</button>
+                                <button type="reset">Cancelar</button>
+                            </form>
                         </div>
                     </div>
-
-                    <button onclick="location.href='newDenominacion.php'">Insertar Nueva Denominacion</button>
 
                 </div>
                 <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
-
-            
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -348,46 +320,21 @@ if(isset($varMsjDelDen))
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
-    <script src="plugins/jAlert/dist/jAlert.min.js"></script>
-    <script src="plugins/jAlert/dist/jAlert-functions.min.js"></script>
-
     <script>
-
-        function myDeleteDen()
+        function setData()
         {
-            confirm(function(e, btn){
-                e.preventDefault();
-                window.location.href = "src/negocio/NGDenominacion.php?idDenominacion=<?php echo $r ->__GET('id_Denominacion') ?>"
-            },
-            function(e,btn){
-                e.preventDefault();
-            });
-
+            $('#txtIdDenominacion').val("<?php echo $varDenId ?>");
+            $('#txtIdMoneda').val("<?php echo $denEdit->__GET('idMoneda') ?>");
+            $('#txtValor').val("<?php echo $denEdit->__GET('valor') ?>");
+            $('#txtValorLetras').val("<?php echo $denEdit->__GET('valor_letras') ?>");
+            $('#txtState').val("<?php echo $denEdit->__GET('estado') ?>");
         }
 
-        $(document).ready(function(){
-            //Variables de control de mensaje
-            var delDen = 0;
-            deleteDen = "<?php echo $varMsjDelDen ?>";
-            if(delDen == "1")
-            {
-                successAlert("La denominacion ha sido dada de baja");
-            }
-            if(delDen == "2")
-            {
-                errorAlert("La denominacion no se ha sido dar de baja");
-            }
+        $(document).ready(function()
+        {
+            setData();
         });
-
     </script>
-
 
 </body>
 
