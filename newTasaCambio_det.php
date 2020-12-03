@@ -1,10 +1,3 @@
-<?php
-
-include 'src/datos/DTMoneda.php';
-
-$dtMon = new DTMoneda();
-
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -232,22 +225,18 @@ $dtMon = new DTMoneda();
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <form role="form" name="newDenominacion" action="src/negocio/NGDenominacion.php" method="post">
+                    <form role="form" name="newDenominacion" action="src/negocio/NGTasaCambio_det.php" method="post">
                         <fieldset>
-                            <legend>Registro de nueva Denominacion</legend>
+                            <legend>Registro de nueva Tasa Cambio Det</legend>
                             <input type="hidden" name="txtAccion" value="1" />
                             
                             <div class="form-group">
-                                <label>Id Moneda</label>
-                                <input type='number_format' name="txtMoneda" id="txtMoneda" class="form-control">
+                                <label>Id Tasa Cambio</label>
+                                <input type='number_format' name="txtTasaCambio" id="txtTasaCambio" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Valor</label>
-                                <input type="number" name="txtValor" id="txtValor" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label>Valor Letras</label>
-                                <input type="text" name="txtValor_letras" id="txtValor_letras" class="form-control" />
+                                <label>Tipo Cambio</label>
+                                <input type="text" name="txtTipoCambio" id="txtTipoCambio" class="form-control" />
                             </div>
                             <div class="form-group">
                                 <label>Estado</label>

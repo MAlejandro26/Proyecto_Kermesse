@@ -12,7 +12,7 @@ class DTTasaCambio extends Conexion
         {
             $this->myCon = parent::Conectar();
             $result = array();
-            $sql = 'SELECT * from tbl_tasaCambio';
+            $sql = 'SELECT * from tbl_tasacambio';
 
             $stm = $this->myCon->prepare($sql);
             $stm->execute();
