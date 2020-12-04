@@ -234,15 +234,9 @@ $dtMon = new DTMoneda();
                 <div class="col-lg-12">
                     <form role="form" name="newEmpleado" action="src/negocio/NGMoneda.php" method="post">
                         <fieldset>
-                            <legend>Registro de nuevo Empleado</legend>
+                            <legend>Registro de nueva Moneda</legend>
                             <input type="hidden" name="txtAccion" value="1" />
 
-                            
-
-                            <div class="form-group">
-                                <label>Id Moneda</label>
-                                <input type='number_format' name="txtMoneda" id="txtMoneda" class="form-control">
-                            </div>
                             <div class="form-group">
                                 <label>Nombre</label>
                                 <input type="text" name="txtNombre" id="txtNombre" class="form-control" />

@@ -30,15 +30,42 @@ if($_POST)
                 die($e->getMessage());
             }
             break;
+            case '2':
+
+                try 
+                {
+                    $moneda->__SET('id_moneda',$_POST['txtIdMoneda']);
+                    $moneda->__SET('nombre',$_POST['txtNombre']);
+                    $moneda->__SET('simbolo', $_POST['txtSimbolo']);
+                    $moneda->__SET('estado',$_POST['txtEstado']);
+    
+                    $dtd->actualizarMoneda($moneda);
+                    header("Location: ../../moneda.php");
+                } 
+                catch (\Throwable $th) 
+                {
+                    header("Location: ../../index.php");
+                    die($e->getMessage());
+                }
+                break;
         
-        default:
-            
-            break;
+            default:
+                
+                break;
     }
-}elseif ($_GET['accion']=='e') {
+}
+if($_GET)
+{
+    try 
+    {
+        $moneda->__SET('id_moneda', $_GET['idMoneda']);
+        $dtd->eliminarMoneda($moneda->__GET('id_moneda'));
 
-    $dtd->eliminarMoneda($_GET['id']);
-    header("Location: ../../moneda.php");
-
-
+        header("Location: ../../moneda.php?msjDelDen=1");
+    } 
+    catch (Exception $e) 
+    {
+        die($e->getMessage());
+        header("Location: ../../moneda.php?msjDelDen=2");
+    }
 }

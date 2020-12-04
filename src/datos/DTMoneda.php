@@ -97,17 +97,16 @@ class DTMoneda extends Conexion
         try
         {
             
-            echo $id_moneda;
             $this->myCon = parent::Conectar();
-            $sql = "UPDATE tbl_moneda SET id_moneda = ?, nombre = ?, simbolo = ?, estado = ? WHERE id_moneda = ?";
+            $sql = "UPDATE tbl_moneda SET nombre = ?, simbolo = ?, estado = ? WHERE id_moneda = ?";
             
 
             $this->myCon->prepare($sql)
             ->execute(array(
-                $data->__GET('id_moneda'),
                 $data->__GET('nombre'),
                 $data->__GET('simbolo'),
                 $data->__GET('estado'),
+                $data->__GET('id_moneda'),
             ));
 
             $this->myCon = parent::desconectar();

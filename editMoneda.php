@@ -1,20 +1,15 @@
 <?php
-error_reporting(0);
 
 include 'src/entidades/moneda.php';
 include 'src/datos/DTMoneda.php';
 
-$datosMoneda = new DTMoneda();
+$datosmoneda = new DTMoneda();
 
-$msjDelDen = "";
-$varMsjDelDen = 0;
-if(isset($varMsjDelDen))
-{
-    $varMsjDelDen = $_GET['msjDelDen'];
-}
+$denEdit;
+$varDenId = $_GET["moneda_id"];
+$denEdit = $datosmoneda->obtenerMoneda($varDenId);
 
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -26,18 +21,15 @@ if(isset($varMsjDelDen))
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>SB Admin 2 - Blank</title>
 
-    <!-- Custom fonts for this template -->
+    <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
+    <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="plugins/jAlert/dist/jAlert.css">
 </head>
 
 <body id="page-top">
@@ -45,12 +37,11 @@ if(isset($varMsjDelDen))
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
         <?php
 
-            include "templates/sidebar.php";
+        include "templates/sidebar.php";
+
         ?>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -62,11 +53,9 @@ if(isset($varMsjDelDen))
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <form class="form-inline">
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                    </form>
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
                     <!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -245,49 +234,32 @@ if(isset($varMsjDelDen))
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Moneda</h1>
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Id Moneda</th>
-                                            <th>Nombre</th>
-                                            <th>Simbolo</th>
-                                            <th>Estado</th>
-                                            <th>Opciones</th>
-                                        </tr>
-                                    </thead>
 
-                                    <tbody>
-                                        <?php foreach($datosMoneda->listarMoneda() as $r): ?>
-                                            <tr>
-                                                <td><?php echo $r->__GET('id_moneda'); ?></td>
-                                                <td><?php echo $r->__GET('nombre'); ?></td>
-                                                <td><?php echo $r->__GET('simbolo'); ?></td>
-                                                <td><?php echo $r->__GET('estado'); ?></td>
-                                                <td>
-                                                    <a href="editMoneda.php?moneda_id=<?php echo $r->__GET('id_moneda'); ?>">
-                                                        <i class="fas fa-edit" title="Modificar"></i>
-                                                    </a>
-                                                    &nbsp;&nbsp;
-                                                    <a href="#" onclick="myDeleteDen()">
-                                                        <i class="fas fa-trash" title="Eliminar"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Editar Location</h1>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form action="src/negocio/NGMoneda.php" method="POST" name="EditMoneda" role="form">
+
+                                <input name="txtAccion" type="hidden" value="2" />
+                                <input type="hidden" name="txtIdMoneda" id="txtIdMoneda">
+                                <div class="form-group">
+                                    <label>Nombre</label>
+                                    <input type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Simbolo</label>
+                                    <input type="text" name="txtSimbolo" id="txtSimbolo" placeholder="Simbolo" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Estado</label>
+                                    <input type="text" name="txtEstado" id="txtEstado" placeholder="Estado" required>
+                                </div>
+                                <button type="submit">Guardar</button>
+                                <button type="reset">Cancelar</button>
+                            </form>
                         </div>
                     </div>
-
-                    <button onclick="location.href='newMoneda.php'">Insertar Nueva Moneda</button>
-
 
                 </div>
                 <!-- /.container-fluid -->
@@ -344,44 +316,20 @@ if(isset($varMsjDelDen))
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
-    <script src="plugins/jAlert/dist/jAlert.min.js"></script>
-    <script src="plugins/jAlert/dist/jAlert-functions.min.js"></script>
-
     <script>
-
-        function myDeleteDen()
+        function setData()
         {
-            confirm(function(e, btn){
-                e.preventDefault();
-                window.location.href = "src/negocio/NGMoneda.php?idMoneda=<?php echo $r ->__GET('id_moneda') ?>"
-            },
-            function(e,btn){
-                e.preventDefault();
-            });
-
+            
+            $('#txtIdMoneda').val("<?php echo $varDenId ?>");
+            $('#txtNombre').val("<?php echo $denEdit->__GET('nombre') ?>");
+            $('#txtSimbolo').val("<?php echo $denEdit->__GET('simbolo') ?>");
+            $('#txtEstado').val("<?php echo $denEdit->__GET('estado') ?>");
         }
 
-        $(document).ready(function(){
-            //Variables de control de mensaje
-            var delDen = 0;
-            deleteDen = "<?php echo $varMsjDelDen ?>";
-            if(delDen == "1")
-            {
-                successAlert("La moneda ha sido dada de baja");
-            }
-            if(delDen == "2")
-            {
-                errorAlert("La moneda no ha sido dada de baja");
-            }
+        $(document).ready(function()
+        {
+            setData();
         });
-
     </script>
 
 </body>
