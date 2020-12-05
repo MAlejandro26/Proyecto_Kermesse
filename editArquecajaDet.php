@@ -1,21 +1,15 @@
 <?php
 
-error_reporting(0);
-
 include 'src/entidades/ArqueoCaja_det.php';
 include 'src/datos/DTArqueoCaja_det.php';
 
-$datosACD = new DTArqueoCaja_det();
+$DTACD = new DTArqueoCaja_det();
 
-$msjDelACD = "";
-$varMsjDelACD = 0;
-if(isset($varMsjDelACD))
-{
-    $varMsjDelACD = $_GET['msjDelACD'];
-}
+$ACDEdit;
+$varACDId = $_GET["ArqueoCajaDetId"];
+$ACDEdit = $DTACD->obtenerArqueoCaja_Det($varACDId);
 
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -27,17 +21,14 @@ if(isset($varMsjDelACD))
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>SB Admin 2 - Blank</title>
 
-    <!-- Custom fonts for this template -->
+    <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
+    <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -46,12 +37,11 @@ if(isset($varMsjDelACD))
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
         <?php
 
-            include "templates/sidebar.php";
+        include "templates/sidebar.php";
+
         ?>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -63,11 +53,9 @@ if(isset($varMsjDelACD))
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <form class="form-inline">
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                    </form>
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
                     <!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -139,52 +127,40 @@ if(isset($varMsjDelACD))
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Detalle de Arqueo de Caja</h1>
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Id Arqueo Caja</th>
-                                            <th>Id Moneda</th>
-                                            <th>Id Denominacion</th>
-                                            <th>Cantidad</th>
-                                            <th>Subtotal</th>
-                                            <th>Opciones</th>
-                                        </tr>
-                                    </thead>
 
-                                    <tbody>
-                                        <?php foreach($datosACD->listarArqueoCaja_det() as $r): ?>
-                                            <tr>
-                                                <td><?php echo $r->__GET('idArqueoCaja_Det'); ?></td>
-                                                <td><?php echo $r->__GET('idArqueoCaja'); ?></td>
-                                                <td><?php echo $r->__GET('idMoneda'); ?></td>
-                                                <td><?php echo $r->__GET('idDenominacion'); ?></td>
-                                                <td><?php echo $r->__GET('canitad'); ?></td>
-                                                <td><?php echo $r->__GET('subtotal'); ?></td>
-                                                <td>
-                                                    <a href="editArqueoCaja_det.php?idArqueoCaja_Det=<?php echo $r->__GET('idArqueoCaja_Det'); ?>">
-                                                        <i class="fas fa-edit" title="Modificar"></i>
-                                                    </a>
-                                                    &nbsp;&nbsp;
-                                                    <a href="#" onclick="myDeleteACD()">
-                                                        <i class="fas fa-trash" title="Eliminar"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Editar detalle de Arqueo de Caja</h1>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form action="src/negocio/NGArqueocaja_det.php" method="POST" name="EditArqueoCaja_Det" role="form">
+                                <input name="txtAccion" type="hidden" value="2" />
+
+                                <input type="hidden" name="txtArqueoCajaDet" id="txtArqueoCajaDet">
+                                <div class="form-group">
+                                    <label>Id Arqueo Caja</label>
+                                    <input type="text" name="txtArqueoCaja" id="txtArqueoCaja" placeholder="Id ArqueoCaja" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Id Moneda </label>
+                                    <input type="text" name="txtMoneda" id="txtMoneda" placeholder="Id Moneda" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Id Denominacion</label>
+                                    <input type="text" name="txtDenominacion" id="txtDenominacion" placeholder="Id Denominacion" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cantidad</label>
+                                    <input type="number" name="txtCantidad" id="txtCantidad" placeholder="Cantidad" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Subtotal</label>
+                                    <input type="number" name="txtSubtotal" id="txtSubtotal" placeholder="Subtotal" required>
+                                </div>
+                                <button type="submit">Guardar</button>
+                                <button type="reset" onclick="location.href='arqueocajaDet.php'">Cancelar</button>
+                            </form>
                         </div>
                     </div>
-
-                    <button onclick="location.href='newArqueoCajaDet.php'">Insertar un nuevo Detalle de Arqueo de Caja</button>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -241,43 +217,26 @@ if(isset($varMsjDelACD))
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
-
+    
     <script>
-
-        function myDeleteACD()
+        function setData()
         {
-            confirm(function(e, btn){
-                e.preventDefault();
-                window.location.href = "src/negocio/NGArqueocaja_det.php?idArqueoCajaDet=<?php echo $r ->__GET('idArqueoCaja_Det') ?>"
-            },
-            function(e,btn){
-                e.preventDefault();
-            });
-
+            $('#txtArqueoCajaDet').val("<?php echo $varACDId ?>");
+            $('#txtArqueoCaja').val("<?php echo $ACDEdit->__GET('idArqueoCaja_Det') ?>");
+            $('#txtMoneda').val("<?php echo $ACDEdit->__GET('idMoneda') ?>");
+            $('#txtDenominacion').val("<?php echo $ACDEdit->__GET('idDenominacion') ?>");
+            $('#txtCantidad').val("<?php echo $ACDEdit->__GET('cantidad') ?>");
+            $('#txtSubtotal').val("<?php echo $ACDEdit->__GET('subtotal') ?>");
         }
 
-        $(document).ready(function(){
-            //Variables de control de mensaje
-            var delACD = 0;
-            deleteACD = "<?php echo $varMsjDelACD ?>";
-            if(delACD == "1")
-            {
-                successAlert("El detalle de Arqueo de Caja ha sido borrado exitosamente!!!");
-            }
-            if(delACD == "2")
-            {
-                errorAlert('Error', 'Revise los datos del detalle e intente nuevamente!!!');
-            }
+        $(document).ready(function()
+        {
+            setData();
         });
-
     </script>
+      
+
+
 </body>
 
 </html>

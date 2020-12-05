@@ -5,6 +5,7 @@ class MvcController
     public function plantilla()
     {
         include "templates/template.php";
+
     }
 
     public function enlacesPag()

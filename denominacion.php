@@ -289,7 +289,7 @@ if(isset($varMsjDelDen))
                         </div>
                     </div>
 
-                    <button onclick="location.href='newDenominacion.php'">Insertar Nueva Denominacion</button>
+                    <button class=".btn-icon-split" onclick="location.href='newDenominacion.php'">Insertar Nueva Denominacion</button>
 
                 </div>
                 <!-- /.container-fluid -->

@@ -234,7 +234,7 @@ $dtACD = new DTArqueoCaja_det();
                 <div class="col-lg-12">
                     <form role="form" name="newArqueoCajaDet" action="src/negocio/NGArqueocaja_det.php" method="post">
                         <fieldset>
-                            <legend>Registrar Nuevo Detalle de Aqueo de Caja</legend>
+                            <legend>Registrar Nuevo Detalle de Arqueo de Caja</legend>
                             <input type="hidden" name="txtAccion" value="1" />
 
                             
@@ -262,7 +262,7 @@ $dtACD = new DTArqueoCaja_det();
                         
 
                             <button type="submit">Guardar</button>
-                            <button type="reset">Cancelar</button>
+                            <button type="reset" onclick="location.href='arqueocajaDet.php'"> Cancelar</button>
 
                         </fieldset>
                     </form>
