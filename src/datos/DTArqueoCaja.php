@@ -22,7 +22,7 @@ class DTArqueoCaja extends Conexion
                 $arqueoCaja = new ArqueoCaja();
                 //SET(CAMPOBD, atributoEntidad)
                 $arqueoCaja->__SET('id_ArqueoCaja', $r->id_ArqueoCaja);
-                $arqueoCaja->__SET('idkermesse', $r->idkermesse);
+                $arqueoCaja->__SET('idKermesse', $r->idKermesse);
                 $arqueoCaja->__SET('fechaArqueo', $r->fechaArqueo);
                 $arqueoCaja->__SET('granTotal', $r->granTotal);
                 $arqueoCaja->__SET('usuario_creacion', $r->usuario_creacion);
@@ -30,7 +30,7 @@ class DTArqueoCaja extends Conexion
                 $arqueoCaja->__SET('usuario_modificacion', $r->usuario_modificacion);
                 $arqueoCaja->__SET('fecha_modificacion', $r->fecha_modificacion);
                 $arqueoCaja->__SET('usuario_eliminacion',$r->usuario_eliminacion);
-                $arqueoCaja->__SET('fecha_eliminacion',$r_fecha_eliminacion);
+                $arqueoCaja->__SET('fecha_eliminacion',$r->fecha_eliminacion);
                 $arqueoCaja->__SET('estado',$r->estado);
 
                 $result[] = $arqueoCaja;
@@ -50,8 +50,8 @@ class DTArqueoCaja extends Conexion
         try
         {
             $this->myCon = parent::Conectar();
-            $sql = "INSERT INTO tbl_ArqueoCaja (idkermesse, fechaArqueo, granTotal, usuario_creacion, fecha_creacion, usuario_modificacion, fecha_modificacion, usuario_eliminacion, fecha_eliminacion, estado)
-                VALUES(?,?,?,?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO tbl_ArqueoCaja (idkermesse, fechaArqueo, granTotal, usuario_creacion, fecha_creacion, estado)
+                VALUES(?,?,?,?,?,?)";
             
             $this->myCon->prepare($sql)
             ->execute(array(
@@ -60,10 +60,10 @@ class DTArqueoCaja extends Conexion
                 $data->__GET('granTotal'),
                 $data->__GET('usuario_creacion'),
                 $data->__GET('fecha_creacion'),
-                $data->__GET('usuario_modificacion'),
+                /*$data->__GET('usuario_modificacion'),
                 $data->__GET('fecha_modificacion'),
                 $data->__GET('usuario_eliminacion'),
-                $data->__GET('fecha_eliminacion'),
+                $data->__GET('fecha_eliminacion'),*/
                 $data->__GET('estado')
             ));
 
