@@ -26,21 +26,49 @@ if($_POST)
                 $acd->registrarArqueoCaja_det($arqueo_det);
                 header("Location: ../../arqueocajaDet.php");
             } 
-            catch (\Throwable $th) 
+            catch (Exception $e) 
             {
-                header("Location: proyecto_kermesse/index.php");
+                header("Location: ../../index.php");
                 die($e->getMessage());
             }
             break;
         
-        default:
+        case '2':
+            try 
+            {
+                $arqueo_det->__SET('idArqueoCaja_Det', $_POST["txtArqueoCajaDet"]);
+                $arqueo_det->__SET('idArqueoCaja', $_POST['txtArqueoCaja']);
+                $arqueo_det->__SET('idMoneda', $_POST['txtMoneda']);
+                $arqueo_det->__SET('idDenominacion', $_POST['txtDenominacion']);
+                $arqueo_det->__SET('cantidad', $_POST['txtCantidad']);
+                $arqueo_det->__SET('subtotal', $_POST['txtSubtotal']);
+
+                
+                $acd->editarArqueoCaja_det($arqueo_det);
+                header("Location: ../../arqueocajaDet");
+            } 
+            catch (Exception $e) 
+            {
+                header("Location: ../../index.php");
+                die($e->getMessage());
+            }
             
             break;
     }
-}elseif ($_GET['accion']=='e') {
+}
 
-    $acd->eliminarArqueoCaja_det($_GET['id']);
-    header("Location: ../../arqueocajaDet.php");
-
-
+if($_GET)
+{
+    try 
+    {
+        $location->__SET('idArqueoCaja_Det', $_GET['idArqueoCajaDet']);
+        $dtl->eliminarLocation($location->__GET('idArqueoCaja_Det'));
+        header("Location: ../../arqueocajaDet.php?msjDelACD=1");
+    } 
+    catch (Exception $e) 
+    {
+        
+        header("Location: ../../arqueocajaDet.php?msjDelACD=2");
+        die($e->getMessage());
+    }
 }
