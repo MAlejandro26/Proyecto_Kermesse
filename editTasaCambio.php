@@ -1,19 +1,15 @@
 <?php
-error_reporting(0);
 
 include 'src/entidades/TasaCambio.php';
 include 'src/datos/DTTasaCambio.php';
 
 $datosTasaCambio = new DTTasaCambio();
 
-$msjDelTac= "";
-$varMsjDelTac= 0;
-if(isset($varMsjDelTac))
-{
-    $varMsjDelTac = $_GET['msjDelTac'];
-}
-?>
+$tacEdit;
+$varTacId = $_GET["tasaCambio_id"];
+$tacEdit = $datosTasaCambio->obtenertasaCambios($varTacId);
 
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -25,17 +21,14 @@ if(isset($varMsjDelTac))
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>SB Admin 2 - Blank</title>
 
-    <!-- Custom fonts for this template -->
+    <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
+    <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -44,12 +37,11 @@ if(isset($varMsjDelTac))
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
         <?php
 
-            include "templates/sidebar.php";
+        include "templates/sidebar.php";
+
         ?>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -61,11 +53,9 @@ if(isset($varMsjDelTac))
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <form class="form-inline">
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                    </form>
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
                     <!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -244,51 +234,40 @@ if(isset($varMsjDelTac))
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tasa Cambio</h1>
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Id MonedaO</th>
-                                            <th>Id MonedaC</th>
-                                            <th>Mes</th>
-                                            <th>Año</th>
-                                            <th>Estado</th>
-                                            <th>Opciones</th>
-                                        </tr>
-                                    </thead>
 
-                                    <tbody>
-                                        <?php foreach($datosTasaCambio->listarTasaCambio() as $r): ?>
-                                            <tr>
-                                                <td><?php echo $r->__GET('id_tasaCambio'); ?></td>
-                                                <td><?php echo $r->__GET('id_monedaO'); ?></td>
-                                                <td><?php echo $r->__GET('id_monedaC'); ?></td>
-                                                <td><?php echo $r->__GET('mes'); ?></td>
-                                                <td><?php echo $r->__GET('anio'); ?></td>
-                                                <td><?php echo $r->__GET('estado'); ?></td>
-                                                <td>
-                                                    <a href="editTasacambio.php?tasacambio_id=<?php echo $r->__GET('location_id'); ?>">
-                                                        <i class="fas fa-edit" title="Modificar"></i>
-                                                    </a>
-                                                    &nbsp;&nbsp;
-                                                    <a href="#" onclick="myDeleteTac()">
-                                                        <i class="fas fa-trash" title="Eliminar"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Editar Tasa Cambio</h1>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form action="src/negocio/NGTasaCambio.php" method="POST" name="EditTasaCambio" role="form">
+
+                                <input name="txtAccion" type="hidden" value="2" />
+                                <input type="hidden" name="txtId_TasaCambio" id="txtId_TasaCambio">
+                                <div class="form-group">
+                                    <label>Id Moneda Origen</label>
+                                    <input type="text" name="txtMonedaO" id="txtMonedaO" placeholder="Id de la Moneda Origen" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Id Moneda Cambio</label>
+                                    <input type="text" name="txtMonedaC" id="txtMonedaC" placeholder="Id de la moneda Cambio" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mes</label>
+                                    <input type="text" name="txtMes" id="txtMes" placeholder="Mes" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Año</label>
+                                    <input type="text" name="txtAnio" id="txtAnio" placeholder="Año" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Estado</label>
+                                    <input type="number" name="txtEstado" id="txtEstado" placeholder="Estado" required>
+                                </div>
+                                <button type="submit">Guardar</button>
+                                <button type="reset">Cancelar</button>
+                            </form>
                         </div>
                     </div>
-                    <button onclick="location.href='newTasaCambio.php'">Insertar Nueva Tasa de cambio</button>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -345,46 +324,22 @@ if(isset($varMsjDelTac))
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
-    <script src="plugins/jAlert/dist/jAlert.min.js"></script>
-    <script src="plugins/jAlert/dist/jAlert-functions.min.js"></script>
-
     <script>
-
-        function myDeleteTac()
+        function setData()
         {
-            confirm(function(e, btn){
-                e.preventDefault();
-                window.location.href = "src/negocio/NGTasaCambio.php?idTasacambio=<?php echo $r ->__GET('id_tasaCambio') ?>"
-            },
-            function(e,btn){
-                e.preventDefault();
-            });
-
+            $('#txtId_TasaCambio').val("<?php echo $varTacId ?>");
+            $('#txtMonedaO').val("<?php echo $tacEdit->__GET('id_monedaO') ?>");
+            $('#txtMonedaC').val("<?php echo $tacEdit->__GET('id_monedaC') ?>");
+            $('#txtMes').val("<?php echo $tacEdit->__GET('mes') ?>");
+            $('#txtAnio').val("<?php echo $tacEdit->__GET('anio') ?>");
+            $('#txtEstado').val("<?php echo $tacEdit->__GET('estado') ?>");
         }
 
-        $(document).ready(function(){
-            //Variables de control de mensaje
-            var delTac = 0;
-            deleteTac = "<?php echo $varMsjDelTac ?>";
-            if(delTac == "1")
-            {
-                successAlert("La tasa de cambio ha sido dada de baja");
-            }
-            if(delTac == "2")
-            {
-                errorAlert("La tasa de cambio no ha sido dada de baja");
-            }
+        $(document).ready(function()
+        {
+            setData();
         });
-
     </script>
-    
 
 </body>
 

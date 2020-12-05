@@ -25,21 +25,47 @@ if($_POST)
                 $dtd->registrarTasaCambio($tasaCambio);
                 header("Location: ../../tasaCambio.php");
             } 
-            catch (\Throwable $th) 
+            catch (Exception $e) 
             {
-                header("Location: daw/HR/index.php");
+                header("Location: ../../index.php");
                 die($e->getMessage());
             }
             break;
         
+        case '2':
+            try {
+                $tasaCambio->__SET('id_tasaCambio', $_POST['txtId_TasaCambio']);
+                $tasaCambio->__SET('id_monedaO',$_POST['txtMonedaO']);
+                $tasaCambio->__SET('id_monedaC',$_POST['txtMonedaC']);
+                $tasaCambio->__SET('mes', $_POST['txtMes']);
+                $tasaCambio->__SET('anio', $_POST['txtAnio']);
+                $tasaCambio->__SET('estado',$_POST['txtEstado']);
+                $dtd->editartasaCambio($tasaCambio);
+                header("Location: ../../tasaCambio.php");
+            } 
+            catch (Exception $e) 
+            {
+                header("Location: ../../index.php");
+                die($e->getMessage());
+            }
+        
         default:
             
-            break;
+        break;
     }
-}elseif ($_GET['accion']=='e') {
+}
+if($_GET)
+{
+    try 
+    {
+        $tasaCambio->__SET('id_tasaCambio', $_GET['idTasacambio']);
+        $dtd->eliminarTasaCambio($tasaCambio->__GET('id_tasaCambio'));
 
-    $dtd->eliminarTasaCambio($_GET['id']);
-    header("Location: ../../tasaCambio.php");
-
-
+        header("Location: ../../tasaCambio.php?msjDelTac=1");
+    } 
+    catch (Exception $e) 
+    {
+        die($e->getMessage());
+        header("Location: ../../tasaCambio.php?msjDelTac=2");
+    }
 }
