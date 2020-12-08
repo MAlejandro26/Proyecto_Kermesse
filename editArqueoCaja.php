@@ -1,20 +1,15 @@
 <?php
-error_reporting(0);
 
 include 'src/entidades/ArqueoCaja.php';
 include 'src/datos/DTArqueoCaja.php';
 
-$datosAC = new DTArqueoCaja();
+$datosarqueoCaja = new DTArqueoCaja();
 
-$msjDelDen = "";
-$varMsjDelDen = 0;
-if(isset($varMsjDelDen))
-{
-    $varMsjDelDen = $_GET['msjDelDen'];
-}
+$denEdit;
+$varDenId = $_GET["arqueoCaja_id"];
+$denEdit = $datosarqueoCaja->obtenerArqueoCaja($varDenId);
 
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -26,17 +21,14 @@ if(isset($varMsjDelDen))
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>SB Admin 2 - Blank</title>
 
-    <!-- Custom fonts for this template -->
+    <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
+    <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -45,12 +37,11 @@ if(isset($varMsjDelDen))
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
         <?php
 
-            include "templates/sidebar.php";
+        include "templates/sidebar.php";
+
         ?>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -62,11 +53,9 @@ if(isset($varMsjDelDen))
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <form class="form-inline">
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                    </form>
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
                     <!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -245,67 +234,31 @@ if(isset($varMsjDelDen))
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Arqueo de Caja</h1>
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Id Arqueo Caja</th>
-                                            <th>Id Kermesse</th>
-                                            <th>Fecha Arqueo</th>
-                                            <th>Gran Total</th>
-                                            <th>Usuario Creacion</th>
-                                            <th>Fecha Creacion</th>
-                                            <th>Usuario Modificacion</th>
-                                            <th>Fecha Modificacion</th>
-                                            <th>Usuario Eliminacion</th>
-                                            <th>Fecha Eliminacion</th>
-                                            <th>Estado</th>
-                                            <th>Opciones</th>
-                                        </tr>
-                                    </thead>
 
-                                    <tbody>
-                                        <?php foreach($datosAC->listarArqueoCaja() as $r): ?>
-                                            <tr>
-                                                <td><?php echo $r->__GET('id_ArqueoCaja'); ?></td>
-                                                <td><?php echo $r->__GET('idKermesse'); ?></td>
-                                                <td><?php echo $r->__GET('fechaArqueo'); ?></td>
-                                                <td><?php echo $r->__GET('granTotal'); ?></td>
-                                                <td><?php echo $r->__GET('usuario_creacion'); ?></td>
-                                                <td><?php echo $r->__GET('fecha_creacion'); ?></td>
-                                                <td><?php echo $r->__GET('usuario_modificacion'); ?></td>
-                                                <td><?php echo $r->__GET('fecha_modificacion'); ?></td>
-                                                <td><?php echo $r->__GET('usuario_eliminacion'); ?></td>
-                                                <td><?php echo $r->__GET('fecha_eliminacion'); ?></td>
-                                                <td><?php echo $r->__GET('estado'); ?></td>
-                                                <td>
-                                                    <a href="editArqueoCaja.php?idArqueoCaja=<?php echo $r->__GET('idArqueoCaja'); ?>">
-                                                        <i class="fas fa-edit" title="Modificar"></i>
-                                                    </a>
-                                                    &nbsp;&nbsp;
-                                                    <a href="src/negocio/NGArqueoCaja.php?id=<?php echo $r->__GET('idArqueoCaja')?>&accion=e">
-                                                        <i class="fas fa-trash" title="Eliminar"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Editar Arqueo Caja</h1>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form action="src/negocio/NGArqueoCaja.php" method="POST" name="EditArqueoCaja" role="form">
+
+                                <input name="txtAccion" type="hidden" value="2" />
+                                <input type="hidden" name="txtIdArqueoCaja" id="txtIdArqueoCaja">
+                                <div class="form-group">
+                                    <label>Usuario Modificación</label>
+                                    <input type="text" name="txtUsuarioM" id="txtUsuarioM" placeholder="Usuario a Modificar" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Fecha Modificación</label>
+                                    <input type="text" name="txtFechaM" id="txtFechaM" placeholder="Fecha Modificación" required>
+                                </div>
+                                <button type="submit">Guardar</button>
+                                <button type="reset">Cancelar</button>
+                            </form>
                         </div>
                     </div>
 
-                    <button onclick="location.href='newArqueoCaja.php'">Insertar Nuevo Arqueo Caja </button>
-
-
                 </div>
                 <!-- /.container-fluid -->
-
 
             </div>
             <!-- End of Main Content -->
@@ -359,46 +312,20 @@ if(isset($varMsjDelDen))
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
-    <script src="plugins/jAlert/dist/jAlert.min.js"></script>
-    <script src="plugins/jAlert/dist/jAlert-functions.min.js"></script>
-
     <script>
+        function setData()
+        {
+            $('#txtIdArqueoCaja').val("<?php echo $varDenId ?>");
+            $('#txtUsuarioM').val("<?php echo $denEdit->__GET('UsuarioM') ?>");
+            $('#txtFechaM').val("<?php echo $denEdit->__GET('FechaM') ?>");
+            
+        }
 
-function myDeleteDen()
-{
-    confirm(function(e, btn){
-        e.preventDefault();
-        window.location.href = "src/negocio/NGArqueoCaja.php?idArqueoCaja=<?php echo $r ->__GET('idArqueoCaja') ?>"
-    },
-    function(e,btn){
-        e.preventDefault();
-    });
-
-}
-
-$(document).ready(function(){
-    //Variables de control de mensaje
-    var delDen = 0;
-    deleteDen = "<?php echo $varMsjDelDen ?>";
-    if(delDen == "1")
-    {
-        successAlert("El Arqueo de Caja ha sido dado de baja");
-    }
-    if(delDen == "2")
-    {
-        errorAlert("El Arqueo de Caja no ha sido dado de baja");
-    }
-});
-
-</script>
-
+        $(document).ready(function()
+        {
+            setData();
+        });
+    </script>
 
 </body>
 

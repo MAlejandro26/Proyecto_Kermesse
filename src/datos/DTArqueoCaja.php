@@ -74,4 +74,79 @@ class DTArqueoCaja extends Conexion
             die($e->getMessage());
         }
     }
+
+    public function obtenerArqueoCaja($id_ArqueoCaja)
+    {
+        try
+        {
+            $this->myCon = parent::Conectar();
+            $sql = "SELECT * from tbl_arqueocaja WHERE id_ArqueoCaja = $id_ArqueoCaja";
+            
+            $stm = $this->myCon->prepare($sql);
+            $stm->execute();
+
+            $r = $stm->fetch(PDO::FETCH_OBJ);
+
+            $arqueoCaja = new ArqueoCaja();
+            //SET(CAMPOBD, atributoEntidad)
+            $arqueoCaja->__SET('id_ArqueoCaja', $r->id_ArqueoCaja);
+            $arqueoCaja->__SET('idKermesse', $r->idKermesse);
+            $arqueoCaja->__SET('fechaArqueo', $r->fechaArqueo);
+            $arqueoCaja->__SET('granTotal', $r->granTotal);
+            $arqueoCaja->__SET('usuario_creacion', $r->usuario_creacion);
+            $arqueoCaja->__SET('fecha_creacion', $r->fecha_creacion);
+            $arqueoCaja->__SET('usuario_modificacion', $r->usuario_modificacion);
+            $arqueoCaja->__SET('fecha_modificacion', $r->fecha_modificacion);
+            $arqueoCaja->__SET('usuario_eliminacion',$r->usuario_eliminacion);
+            $arqueoCaja->__SET('fecha_eliminacion',$r->fecha_eliminacion);
+            $arqueoCaja->__SET('estado',$r->estado);
+
+            return $arqueoCaja;
+
+            $this->myCon = parent::desconectar();
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
+    }
+    public function actualizarArqueoCaja(ArqueoCaja $data)
+    {
+        try
+        {
+            
+            $this->myCon = parent::Conectar();
+            $sql = "UPDATE tbl_arqueoCaja SET usuario_modificacion = ?, fecha_modificacion = ? WHERE id_ArqueoCaja = ?";
+            
+
+            $this->myCon->prepare($sql)
+            ->execute(array(
+                $data->__GET('usuario_modificacion'),
+                $data->__GET('fecha_modificacion'),
+            ));
+
+            $this->myCon = parent::desconectar();
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
+    }
+
+    public function eliminarArqueoCaja($id_ArqueoCaja)
+    {
+        try
+        {
+            $this->myCon = parent::Conectar();
+            $sql = "DELETE FROM tbl_arqueocaja WHERE id_ArqueoCaja = $id_ArqueoCaja";
+            
+            $this->myCon->prepare($sql)->execute();
+
+            $this->myCon = parent::desconectar();
+        }
+        catch(Exception $e)
+        {
+            die($e->getMessage());
+        }
+    }
 }
