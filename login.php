@@ -1,79 +1,30 @@
 <?php
+$usuario=$_POST['usuario'];
+$contraseña=$_POST['contraseña'];
+session_start();
+$_SESSION['usuario']=$usuario;
 
-session_unset(); // Borrar las variables de sesión
-session_destroy(); // Destruir la sesión
 
-?>
+$conexion=mysqli_connect("localhost","root","","dbkermesse_grupo4");
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Autenticación</title>
-        <link href="css/styles.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
-    </head>
-    <body class="bg-primary">
-        <div id="layoutAuthentication">
-            <div id="layoutAuthentication_content">
-                <main>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-5">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Acceso de Usuarios</h3></div>
-                                    <div class="card-body">
-                                        <form method="POST" action="src/negocio/NgAcceso.php" >
-                                            <div class="form-group">
-                                                <label class="small mb-1" for="inputEmailAddress">Usuario: </label>
-                                                <input class="form-control py-4" name="user" id="user" type="text" placeholder="Ingrese su usuario" required/>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="small mb-1" for="inputPassword">Contraseña: </label>
-                                                <input class="form-control py-4" name="clave" id="clave" type="password" placeholder="Ingrese su contraseña" required/>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />
-                                                    <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password.html">Forgot Password?</a>
-                                                <input class="btn btn-primary" type="submit" value="Entrar" />
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="card-footer text-center">
-                                        <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
-            <div id="layoutAuthentication_footer">
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-    </body>
-</html>
+$consulta="SELECT*FROM tbl_usuario where usuario ='$usuario' and pwd ='$contraseña'";
+$resultado=mysqli_query($conexion,$consulta);
+
+$filas=mysqli_num_rows($resultado);
+
+if($filas){
+  
+    header("location:index.php");
+
+}else{
+    ?>
+    <?php
+    include("login.html");
+
+  ?>
+  
+  <h1 class="btn btn-google btn-user btn-block">ERROR DE AUTENTIFICACION</h1>
+  <?php
+}
+mysqli_free_result($resultado);
+mysqli_close($conexion);
