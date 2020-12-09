@@ -1,6 +1,6 @@
 <?php
 $usuario=$_POST['usuario'];
-$contraseña=$_POST['contraseña'];
+$contraseña=$_POST["pass"];
 session_start();
 $_SESSION['usuario']=$usuario;
 
@@ -14,12 +14,12 @@ $filas=mysqli_num_rows($resultado);
 
 if($filas){
   
-    header("location:index.php");
+  echo "<script> alert('Bienvenido $usuario'); window.location='index.php' </script>";
 
 }else{
     ?>
     <?php
-    include("login.html");
+    echo "<script> alert('Usuario no existe'); window.location='404.html' </script>";
 
   ?>
   
