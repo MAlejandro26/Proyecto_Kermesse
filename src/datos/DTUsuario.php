@@ -66,4 +66,24 @@ class DTUsuario extends Conexion
             die($e->getMessage());
         }
     }
+    public function validarUsuario($user, $pwd)
+    {
+        try 
+        {
+            $this->myCon = parent::Conectar();
+
+            $sql = "Select * from tbl_usuario WHERE usuario=? AND pwd=? AND estado<>3;";
+            $stm =$this->myCon->prepare($sql);
+            $stm->execute(array($user,$pwd));
+
+            $resultado = $stm->fetchAll(PDO::FETCH_CLASS, "Usuario");
+
+            $this->myCon = parent::desconectar();
+            return $resultado;
+        } 
+        catch (Exception $e) 
+        {
+            die($e->getMessage());
+        }
+    }
 }
